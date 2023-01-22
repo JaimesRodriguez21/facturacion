@@ -27,7 +27,6 @@ public class Facturacion {
         IFacturaDao factDao = new FacturaDao(con);
         IDetalleDao detalleDao = new DetalleDao(con);
         try {
-
             fact.calcularSubtotal();
             fact.calcularTotal();
             fact.setFecha(new Date());
