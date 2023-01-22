@@ -22,8 +22,8 @@ import utils.Conexion;
 public class FacturaDao implements IFacturaDao<Factura, Integer> {
 
     private final Conexion con;
-    private static final String INSERT_FACT = "INSERT INTO FACT( fact_nombre, fact_fecha, fact_subtotal, fact_iva, fact_total) VALUE (?,?,?,?,?);";
-    private static final String SELECT_FACT = "SELECT * FROM FACT WHERE fact_id = ?;";
+    private static final String INSERT_FACT = "INSERT INTO fact( fact_nombre, fact_fecha, fact_subtotal, fact_iva, fact_total) VALUES (?,?,?,?,?);";
+    private static final String SELECT_FACT = "SELECT * FROM fact WHERE fact_id = ?;";
     private static final String SELECT_ALL_FACT = "SELECT * FROM fact;";
     private static final String DELETE_FACT = "DELETE FROM fact WHERE fact_id = ?;";
     private static final String UPDATE_FACT = "UPDATE fact SET fact_nombre = ?, fact_fecha = ?, fact_subtotal = ?, fact_iva = ?, fact_total= ? WHERE fact_id = ?;";
@@ -84,6 +84,7 @@ public class FacturaDao implements IFacturaDao<Factura, Integer> {
                 fact.setSubTotal(rs.getDouble("fact_subtotal"));
                 fact.setIva(rs.getDouble("fact_iva"));
                 fact.setTotal(rs.getDouble("fact_total"));
+                listFact.add(fact);
             }
         } catch (SQLException e) {
             System.err.println(e);

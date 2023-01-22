@@ -10,7 +10,6 @@ import Dao.IFacturaDao;
 import Dao.impl.DetalleDao;
 import Dao.impl.FacturaDao;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import model.Detalle;
 import model.Factura;
@@ -29,7 +28,7 @@ public class MediatorFacturacion {
         try {
             fact.calcularSubtotal();
             fact.calcularTotal();
-            fact.setFecha(new Date());
+            fact.setFecha( fact.getFecha());
             factDao.insert(fact);
             con.close();
         } catch (Exception e) {
@@ -56,7 +55,7 @@ public class MediatorFacturacion {
 
             fact.calcularSubtotal();
             fact.calcularTotal();
-            fact.setFecha(new Date());
+            fact.setFecha( fact.getFecha());
             update = factDao.update(fact);
 
         } catch (Exception e) {
