@@ -13,6 +13,7 @@ import java.util.Date;
  * @author Jaimes Rodriguez
  */
 public class Factura {
+
     private int numerofactura;
     private String nombreCliente;
     private Date fecha;
@@ -31,6 +32,19 @@ public class Factura {
         this.subTotal = subTotal;
         this.iva = iva;
         this.total = total;
+    }
+
+    public void calcularSubtotal() {
+        this.subTotal = 0;
+        if (listDeta != null) {
+            listDeta.stream().forEach((info) -> {
+                this.subTotal += info.getCantidad() * info.getValor();
+            });
+        }
+    }
+
+    public void calcularTotal() {
+        this.total = this.subTotal + (this.subTotal * this.iva);
     }
 
     public int getNumerofactura() {
@@ -93,6 +107,5 @@ public class Factura {
     public String toString() {
         return "Factura{" + "numerofactura=" + numerofactura + ", nombreCliente=" + nombreCliente + ", fecha=" + fecha + ", subTotal=" + subTotal + ", iva=" + iva + ", total=" + total + ", ListDeta=" + listDeta + '}';
     }
-    
-    
+
 }

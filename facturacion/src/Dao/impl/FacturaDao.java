@@ -6,9 +6,14 @@
 package Dao.impl;
 
 import Dao.IFacturaDao;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.ResultSet;
 import model.Factura;
+import utils.Conexion;
 
 /**
  *
@@ -16,54 +21,106 @@ import model.Factura;
  */
 public class FacturaDao implements IFacturaDao<Factura, Integer> {
 
-    @Override
-    public Factura getId(Integer id) {
-        Factura fact = null;
-        try {
+    private final Conexion con;
+    private static final String INSERT_FACT = "INSERT INTO FACT( fact_nombre, fact_fecha, fact_subtotal, fact_iva, fact_total) VALUE (?,?,?,?,?);";
+    private static final String SELECT_FACT = "SELECT * FROM FACT WHERE fact_id = ?;";
+    private static final String SELECT_ALL_FACT = "SELECT * FROM fact;";
+    private static final String DELETE_FACT = "DELETE FROM fact WHERE fact_id = ?;";
+    private static final String UPDATE_FACT = "UPDATE fact SET fact_nombre = ?, fact_fecha = ?, fact_subtotal = ?, fact_iva = ?, fact_total= ? WHERE fact_id = ?;";
 
-        } catch (Exception e) {
-        }
-        return fact;
+    public FacturaDao(Conexion con) {
+        this.con = con;
     }
 
     @Override
     public boolean insert(Factura factura) {
         boolean insert = false;
         try {
-
-        } catch (Exception e) {
+            PreparedStatement ps = con.preparedStatement(INSERT_FACT);
+            ps.setString(1, factura.getNombreCliente());
+            ps.setDate(2, (Date) factura.getFecha());
+            ps.setDouble(3, factura.getSubTotal());
+            ps.setDouble(4, factura.getIva());
+            ps.setDouble(5, factura.getTotal());
+            insert = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println(e);
         }
         return insert;
     }
 
     @Override
-    public boolean update(Factura factura) {
-        boolean update = false;
+    public Factura getId(Integer id) {
+        Factura fact = null;
         try {
-
-        } catch (Exception e) {
+            PreparedStatement ps = con.preparedStatement(SELECT_FACT);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                fact = new Factura();
+                fact.setNumerofactura(rs.getInt("fact_id"));
+                fact.setNombreCliente(rs.getString("fact_nombre"));
+                fact.setFecha(rs.getDate("fact_fecha"));
+                fact.setSubTotal(rs.getDouble("fact_subtotal"));
+                fact.setIva(rs.getDouble("fact_iva"));
+                fact.setTotal(rs.getDouble("fact_total"));
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
         }
-        return update;
+        return fact;
+    }
+
+    @Override
+    public List<Factura> getAll() {
+        List<Factura> listFact = new ArrayList<>();
+        try {
+            PreparedStatement ps = this.con.preparedStatement(SELECT_ALL_FACT);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Factura fact = new Factura();
+                fact.setNumerofactura(rs.getInt("fact_id"));
+                fact.setNombreCliente(rs.getString("fact_nombre"));
+                fact.setFecha(rs.getDate("fact_fecha"));
+                fact.setSubTotal(rs.getDouble("fact_subtotal"));
+                fact.setIva(rs.getDouble("fact_iva"));
+                fact.setTotal(rs.getDouble("fact_total"));
+            }
+        } catch (SQLException e) {
+            System.err.println(e);
+        }
+        return listFact;
     }
 
     @Override
     public boolean delete(Integer id) {
         boolean delete = false;
         try {
-
-        } catch (Exception e) {
+            PreparedStatement ps = this.con.preparedStatement(DELETE_FACT);
+            ps.setInt(1, id);
+            delete = ps.executeUpdate() > 0;
+        } catch (SQLException e) {
+            System.err.println(e);
         }
         return delete;
     }
 
     @Override
-    public List<Factura> getAll() {
-        List<Factura> listFact= new ArrayList<>();
+    public boolean update(Factura factura) {
+        boolean update = false;
         try {
+            PreparedStatement ps = this.con.preparedStatement(UPDATE_FACT);
+            ps.setString(1, factura.getNombreCliente());
+            ps.setDate(2, (Date) factura.getFecha());
+            ps.setDouble(3, factura.getSubTotal());
+            ps.setDouble(4, factura.getIva());
+            ps.setDouble(5, factura.getTotal());
+            ps.setInt(6, factura.getNumerofactura());
+            return ps.executeUpdate() > 0;
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
+            System.err.println(e);
         }
-        return listFact;
+        return update;
     }
 
 }

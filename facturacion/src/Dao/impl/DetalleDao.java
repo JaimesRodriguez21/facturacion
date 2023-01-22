@@ -42,8 +42,8 @@ public class DetalleDao implements IDetalleDao<Detalle, Integer>{
             ps.setDouble(3, detalle.getValor());
             ps.setInt(4, detalle.getId_fact());
             insert = ps.executeUpdate() > 0;
-        } catch (SQLException var4) {
-            System.err.println(var4);
+        } catch (SQLException e) {
+            System.err.println(e);
         }
 
         return insert;
@@ -64,8 +64,8 @@ public class DetalleDao implements IDetalleDao<Detalle, Integer>{
                 detalle.setCantidad(rs.getInt("deta_cantidad"));
                 detalle.setValor(rs.getDouble("deta_valor"));
             }
-        } catch (SQLException var5) {
-            System.err.println(var5);
+        } catch (SQLException e) {
+            System.err.println(e);
         }
 
         return detalle;
@@ -87,8 +87,8 @@ public class DetalleDao implements IDetalleDao<Detalle, Integer>{
                 detalle.setId_fact(rs.getInt("deta_fact_fk"));
                 listDeta.add(detalle);
             }
-        } catch (SQLException var5) {
-            System.err.println(var5);
+        } catch (SQLException e) {
+            System.err.println(e);
         }
 
         return listDeta;
@@ -102,8 +102,8 @@ public class DetalleDao implements IDetalleDao<Detalle, Integer>{
             PreparedStatement ps = this.con.preparedStatement(DELETE_DETA);
             ps.setInt(1, id);
             delete = ps.executeUpdate() > 0;
-        } catch (SQLException var4) {
-            System.err.println(var4);
+        } catch (SQLException e) {
+            System.err.println(e);
         }
 
         return delete;
@@ -121,8 +121,8 @@ public class DetalleDao implements IDetalleDao<Detalle, Integer>{
             ps.setInt(4, detalle.getId_fact());
             ps.setInt(5, detalle.getId());
             return ps.executeUpdate() > 0;
-        } catch (SQLException var4) {
-            System.err.println();
+        } catch (SQLException e) {
+            System.err.println(e);
             return update;
         }
     }
@@ -145,8 +145,8 @@ public class DetalleDao implements IDetalleDao<Detalle, Integer>{
                 detalle.setId_fact(rs.getInt("deta_fact_fk"));
                 listDeta.add(detalle);
             }
-        } catch (SQLException var6) {
-            System.err.println(var6);
+        } catch (SQLException e) {
+            System.err.println(e);
         }
 
         return listDeta;
