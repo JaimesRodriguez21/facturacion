@@ -20,7 +20,7 @@ import utils.Conexion;
  *Fact = Factura
  * @author Jaimes Rodriguez
  */
-public class Facturacion {
+public class MediatorFacturacion {
 
     public Factura crearFact(Factura fact) {
         Conexion con = new Conexion();
