@@ -16,7 +16,8 @@ import model.Factura;
 import utils.Conexion;
 
 /**
- *Fact = Factura
+ * Fact = Factura
+ *
  * @author Jaimes Rodriguez
  */
 public class MediatorFacturacion {
@@ -24,11 +25,8 @@ public class MediatorFacturacion {
     public Factura crearFact(Factura fact) {
         Conexion con = new Conexion();
         IFacturaDao factDao = new FacturaDao(con);
-        IDetalleDao detalleDao = new DetalleDao(con);
         try {
-            fact.calcularSubtotal();
-            fact.calcularTotal();
-            fact.setFecha( fact.getFecha());
+            fact.setListDeta(fact.getListDeta());
             factDao.insert(fact);
             con.close();
         } catch (Exception e) {
@@ -55,7 +53,6 @@ public class MediatorFacturacion {
 
             fact.calcularSubtotal();
             fact.calcularTotal();
-            fact.setFecha( fact.getFecha());
             update = factDao.update(fact);
 
         } catch (Exception e) {
@@ -85,8 +82,13 @@ public class MediatorFacturacion {
         List<Factura> listFact = null;
         Conexion con = new Conexion();
         IFacturaDao facturaDao = new FacturaDao(con);
+        IDetalleDao detaDao = new DetalleDao(con);
         try {
             listFact = facturaDao.getAll();
+            listFact.stream().forEach((info) -> {
+                info.setListDeta((ArrayList<Detalle>) detaDao.getIdFactura(info.getNumerofactura()));
+            });
+
         } catch (Exception e) {
             System.err.println(e);
         } finally {

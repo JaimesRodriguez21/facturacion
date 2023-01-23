@@ -16,6 +16,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import model.Factura;
 
 /**
@@ -61,19 +62,16 @@ public class FacturacionResource {
     @DELETE
     @Path(value = "/{id}")
     @Produces(MediaType.TEXT_PLAIN)
-    public Object deletFactura(@PathParam("id") int id) {
-        Object isDelete = this.facturacion.eliminarFactura(id);
-        System.err.println(id);
-        return isDelete;
+    public Response deletFactura(@PathParam("id") int id) {
+        boolean isDelete = this.facturacion.eliminarFactura(id);
+        return (isDelete)? Response.ok().build():Response.serverError().build();
     }
 
     @PUT
     @Path(value = "/updatefactura")
     @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.TEXT_PLAIN)
-    public Object deletFactura(Factura fact) {
-        Object isUpdate = this.facturacion.actualizarFact(fact);
-        System.out.println(fact.toString());
-        return isUpdate;
+    public Response deletFactura(Factura fact) {
+        boolean  isUpdate = this.facturacion.actualizarFact(fact);
+        return  (isUpdate)? Response.ok().build():Response.serverError().build();
     }
 }

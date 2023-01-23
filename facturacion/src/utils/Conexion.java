@@ -27,8 +27,8 @@ public class Conexion {
         try {
             Class.forName(this.driver).newInstance();
             con = DriverManager.getConnection(this.url + this.dbName, this.user, this.pass);
-        } catch (IllegalAccessException | ClassNotFoundException | SQLException | InstantiationException var2) {
-            System.err.println("Error de Conexion: " + var2.getMessage());
+        } catch (IllegalAccessException | ClassNotFoundException | SQLException | InstantiationException e) {
+            System.err.println("Fallo en Conexion: " + e.getMessage());
         }
 
     }
@@ -51,8 +51,8 @@ public class Conexion {
             if (con != null) {
                 con.close();
             }
-        } catch (SQLException var2) {
-            System.err.println("Error close " + var2.getMessage());
+        } catch (SQLException e) {
+            System.err.println("Fallo de cerrado " + e.getMessage());
         }
 
     }

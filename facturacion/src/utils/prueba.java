@@ -5,9 +5,12 @@
  */
 package utils;
 
+import Dao.IDetalleDao;
+import Dao.impl.DetalleDao;
 import facade.Facturacion;
 import java.sql.Date;
 import java.util.List;
+import model.Detalle;
 import model.Factura;
 
 /**
@@ -20,23 +23,32 @@ public class prueba {
     }
 
     public static void main(String[] args) {
-        Factura fact = new Factura();
-        Facturacion facturacion = new Facturacion();
-        Conexion con = new Conexion();
-        fact.setNombreCliente("Maria Fernando");
-        fact.setIva(0.19);
-        //    fact.setNumerofactura(1);
-        fact.setSubTotal(0.0);
-        fact.setTotal(1.0);
-        fact.setFecha(new Date(0));
-
-        facturacion.crearFactura(fact);
+//        Factura fact = new Factura();
+////        Detalle deta = new Detalle();
+//      Facturacion facturacion = new Facturacion();
+//    //    Conexion con = new Conexion();
+////        IDetalleDao detaDao = new DetalleDao(con);
+//        fact.setNombreCliente("prueba");
+//        fact.setIva(0.18);
+//        //    fact.setNumerofactura(1);
+//        fact.setSubTotal(10.0);
+//        fact.setTotal(10.0);
+//        fact.setFecha(new Date(0));
+////
+//facturacion.crearFactura(fact);
         //facturacion.eliminarFactura(4);
 
 //          List datos = facturacion.ListarFacturas();
 //          datos.stream().forEach((info) -> {
 //          System.out.println(info.toString()); });
         // facturacion.actualizarFact(fact);
+//        deta.setArticulo("limpio");
+//        deta.setCantidad(5);
+//        deta.setValor(1000);
+//        deta.setId_fact(7);
+//
+//        detaDao.insert(deta);
+
     }
 
 }
