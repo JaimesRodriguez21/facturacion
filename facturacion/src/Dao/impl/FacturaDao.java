@@ -54,6 +54,7 @@ public class FacturaDao implements IFacturaDao<Factura, Integer> {
         Factura fact = null;
         try {
             PreparedStatement ps = con.preparedStatement(SELECT_FACT);
+            ps.setInt(1, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 fact = new Factura();

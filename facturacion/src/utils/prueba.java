@@ -6,7 +6,6 @@
 package utils;
 
 import facade.Facturacion;
-import static java.awt.SystemColor.info;
 import java.sql.Date;
 import java.util.List;
 import model.Factura;
@@ -24,22 +23,21 @@ public class prueba {
         Factura fact = new Factura();
         Facturacion facturacion = new Facturacion();
         Conexion con = new Conexion();
-        // fact.setNumerofactura(1);
         fact.setNombreCliente("Jose Gabriel");
         fact.setIva(0.19);
-        fact.setNumerofactura(1);
+        fact.setNumerofactura(3);
         fact.setSubTotal(0.0);
         fact.setTotal(1.0);
         fact.setFecha(new Date(0));
 
         //facturacion.crearFactura(fact);
-        //facturacion.eliminarFactura(2);
-        /*
+        //facturacion.eliminarFactura(4);
+        
           List datos = facturacion.ListarFacturas();
           datos.stream().forEach((info) -> {
           System.out.println(info.toString()); });
-         */
-        //   facturacion.actualizarFact(fact);
+        
+         // facturacion.actualizarFact(fact);
     }
 
 }
