@@ -23,21 +23,20 @@ public class prueba {
         Factura fact = new Factura();
         Facturacion facturacion = new Facturacion();
         Conexion con = new Conexion();
-        fact.setNombreCliente("Jose Gabriel");
+        fact.setNombreCliente("Maria Fernando");
         fact.setIva(0.19);
-        fact.setNumerofactura(3);
+        //    fact.setNumerofactura(1);
         fact.setSubTotal(0.0);
         fact.setTotal(1.0);
         fact.setFecha(new Date(0));
 
-        //facturacion.crearFactura(fact);
+        facturacion.crearFactura(fact);
         //facturacion.eliminarFactura(4);
-        
-          List datos = facturacion.ListarFacturas();
-          datos.stream().forEach((info) -> {
-          System.out.println(info.toString()); });
-        
-         // facturacion.actualizarFact(fact);
+
+//          List datos = facturacion.ListarFacturas();
+//          datos.stream().forEach((info) -> {
+//          System.out.println(info.toString()); });
+        // facturacion.actualizarFact(fact);
     }
 
 }

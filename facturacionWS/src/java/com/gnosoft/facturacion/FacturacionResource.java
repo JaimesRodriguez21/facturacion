@@ -9,8 +9,10 @@ import facade.Facturacion;
 import java.util.List;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.core.MediaType;
@@ -49,11 +51,29 @@ public class FacturacionResource {
     }
 
     @GET
-    @Path(value = "/{id}")
+    @Path(value = "/factura/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public Factura listarFacturas(@PathParam("id") int id) {
+    public Factura obtenerFactura(@PathParam("id") int id) {
         Factura fact = this.facturacion.obtenerFactura(id);
-        System.err.println(id);
         return fact;
+    }
+
+    @DELETE
+    @Path(value = "/{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Object deletFactura(@PathParam("id") int id) {
+        Object isDelete = this.facturacion.eliminarFactura(id);
+        System.err.println(id);
+        return isDelete;
+    }
+
+    @PUT
+    @Path(value = "/updatefactura")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.TEXT_PLAIN)
+    public Object deletFactura(Factura fact) {
+        Object isUpdate = this.facturacion.actualizarFact(fact);
+        System.out.println(fact.toString());
+        return isUpdate;
     }
 }
