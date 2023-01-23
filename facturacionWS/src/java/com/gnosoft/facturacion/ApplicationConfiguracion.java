@@ -5,6 +5,7 @@
  */
 package com.gnosoft.facturacion;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
@@ -13,10 +14,10 @@ import javax.ws.rs.core.Application;
  *
  * @author Jaimes Rodriguez
  */
-
 @ApplicationPath(value = "/api/")
-public class ApplicationConfiguracion extends Application{
-   @Override
+public class ApplicationConfiguracion extends Application {
+
+    @Override
     public Set<Class<?>> getClasses() {
         Set<Class<?>> resources = new java.util.HashSet<>();
         addRestResourceClasses(resources);
@@ -26,5 +27,15 @@ public class ApplicationConfiguracion extends Application{
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(com.gnosoft.facturacion.FacturacionResource.class);
     }
-    
+
+    @Override
+    public Set<Object> getSingletons() {
+        final Set<Object> singletons = new HashSet<>();
+        singletons.add(this);
+         // Giving cors filter object to the application/resource config
+        singletons.add(new CorsFilter());
+        return singletons;
+    }
+
 }
+

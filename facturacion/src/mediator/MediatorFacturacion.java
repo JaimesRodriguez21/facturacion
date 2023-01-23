@@ -85,9 +85,6 @@ public class MediatorFacturacion {
         IDetalleDao detaDao = new DetalleDao(con);
         try {
             listFact = facturaDao.getAll();
-            listFact.stream().forEach((info) -> {
-                info.setListDeta((ArrayList<Detalle>) detaDao.getIdFactura(info.getNumerofactura()));
-            });
 
         } catch (Exception e) {
             System.err.println(e);
