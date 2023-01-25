@@ -25,9 +25,19 @@ public class MediatorFacturacion {
     public Factura crearFact(Factura fact) {
         Conexion con = new Conexion();
         IFacturaDao factDao = new FacturaDao(con);
+        IDetalleDao detaDao = new DetalleDao(con);
         try {
-            fact.setListDeta(fact.getListDeta());
             factDao.insert(fact);
+            if (fact.getListDeta() != null) {
+                fact.setListDeta((ArrayList<Detalle>) validateCantidad(fact.getListDeta()));
+                fact.getListDeta().stream().forEach((deta) -> {
+                        deta.setId_fact(fact.getNumerofactura());
+                        detaDao.insert(deta);
+                });
+            }
+            fact.calcularSubtotal();
+            fact.calcularTotal();
+            factDao.update(fact);
             con.close();
         } catch (Exception e) {
             System.err.println(e);
@@ -110,5 +120,16 @@ public class MediatorFacturacion {
             con.close();
         }
         return fact;
+    }
+
+    public List<Detalle> validateCantidad(List<Detalle> list) {
+        List<Detalle> detas = new ArrayList<>();
+        list.stream().forEach((deta) -> {
+            if (deta.getCantidad() > 1) {
+               detas.add(deta);
+            }
+        });
+        
+        return detas;
     }
 }

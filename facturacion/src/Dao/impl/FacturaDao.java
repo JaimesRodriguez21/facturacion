@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import model.Factura;
 import utils.Conexion;
 
@@ -35,14 +36,19 @@ public class FacturaDao implements IFacturaDao<Factura, Integer> {
     @Override
     public boolean insert(Factura factura) {
         boolean insert = false;
-        try {
-            PreparedStatement ps = con.preparedStatement(INSERT_FACT);
+        try (PreparedStatement ps = this.con.preparedStatement(INSERT_FACT, Statement.RETURN_GENERATED_KEYS)) {
+
             ps.setString(1, factura.getNombreCliente());
             ps.setDate(2, (Date) factura.getFecha());
             ps.setDouble(3, factura.getSubTotal());
             ps.setDouble(4, factura.getIva());
             ps.setDouble(5, factura.getTotal());
+
             insert = ps.executeUpdate() > 0;
+            ResultSet generatedKeys = ps.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                factura.setNumerofactura(generatedKeys.getInt(1));
+            }
         } catch (SQLException e) {
             System.err.println(e);
         }

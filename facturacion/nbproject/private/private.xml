@@ -4,7 +4,10 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/C:/Users/Jaimes%20Rodriguez/Desktop/gnosoft/facturacion/src/Dao/impl/FacturaDao.java</file>
+            <file>file:/C:/Users/Jaimes%20Rodriguez/Desktop/gnosoft/facturacion/src/model/Factura.java</file>
+            <file>file:/C:/Users/Jaimes%20Rodriguez/Desktop/gnosoft/facturacion/src/Dao/impl/DetalleDao.java</file>
             <file>file:/C:/Users/Jaimes%20Rodriguez/Desktop/gnosoft/facturacion/src/mediator/MediatorFacturacion.java</file>
+            <file>file:/C:/Users/Jaimes%20Rodriguez/Desktop/gnosoft/facturacion/src/facade/Facturacion.java</file>
         </group>
     </open-files>
 </project-private>

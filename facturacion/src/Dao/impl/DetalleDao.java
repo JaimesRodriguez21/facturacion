@@ -31,6 +31,7 @@ public class DetalleDao implements IDetalleDao<Detalle, Integer>{
     public DetalleDao(Conexion con) {
         this.con = con;
     }
+    
     @Override
     public boolean insert(Detalle detalle) {
         boolean insert = false;

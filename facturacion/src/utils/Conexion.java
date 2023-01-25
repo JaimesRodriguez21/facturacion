@@ -56,4 +56,9 @@ public class Conexion {
         }
 
     }
+
+    public PreparedStatement preparedStatement(String sql, int GENERATED_KEYS) throws SQLException {
+        return con.prepareStatement(sql, GENERATED_KEYS); 
+
+    }
 }
